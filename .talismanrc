@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: components/Expense/ExpensesList.js
+  checksum: ac3671e0d5722bcb71eeba96e3fd64836517f9d12400992489dba197ffb613d4
+- filename: components/ManageExpense/ExpenseForm.js
+  checksum: f086f107e96bc698ab181fec610eb45a91b6bfd58a4947930c38d30bf9b91b57
+- filename: yarn.lock
+  checksum: 6936b88702f597d49b974763cc41b2f94f6778042c53e2c1629a637f97350e85
+version: "1.0"
