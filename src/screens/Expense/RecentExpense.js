@@ -1,12 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import ExpensesOutput from "../components/Expense/ExpensesOutput";
-import { ExpensesContext } from "../store/expenses-context";
-import { useContext } from "react";
-import { GlobalStyles } from "../constants/styles";
+import ExpensesOutput from "../../components/Expense/ExpensesOutput";
+import { GlobalStyles } from "../../constants/styles";
+import useFetchExpense from "../../hooks/useFetchExpense";
+import Loader from "../../components/UI/Loader";
 
 const RecentExpense = () => {
-  const expensesCtx = useContext(ExpensesContext);
-  const recentExpenses = expensesCtx.expenses.filter((expense) => {
+  const [expenses, isLoading] = useFetchExpense();
+
+  const recentExpenses = expenses.filter((expense) => {
     const today = new Date();
     const dateSevenDaysAgo = new Date(
       today.getFullYear(),
@@ -16,7 +17,9 @@ const RecentExpense = () => {
     return expense.date >= dateSevenDaysAgo && expense.date <= today;
   });
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <View style={styles.expenseConatiner}>
       <ExpensesOutput
         expenses={recentExpenses}

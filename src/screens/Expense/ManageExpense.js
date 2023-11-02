@@ -1,11 +1,18 @@
-import { useLayoutEffect, useContext } from "react";
+import { useLayoutEffect, useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import { ExpensesContext } from "../store/expenses-context";
-import ExpenseForm from "../components/ManageExpense/ExpenseForm";
-import IconButton from "../components/UI/IconButton";
+import { GlobalStyles } from "../../constants/styles";
+import { ExpensesContext } from "../../store/expenses-context";
+import ExpenseForm from "../../components/ManageExpense/ExpenseForm";
+import IconButton from "../../components/UI/IconButton";
+import {
+  addExpense,
+  deleteExpense,
+  updateExpense,
+} from "../../services/expense";
+import Loader from "../../components/UI/Loader";
 
 const ManageExpense = ({ route, navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const expensesCtx = useContext(ExpensesContext);
   const expenseId = route.params?.expenseId;
   const isEditing = !!expenseId;
@@ -19,8 +26,10 @@ const ManageExpense = ({ route, navigation }) => {
     });
   }, [isEditing, navigation]);
 
-  const handleExpenseDelete = () => {
+  const handleExpenseDelete = async () => {
+    setIsLoading(true);
     expensesCtx.deleteExpense(expenseId);
+    await deleteExpense(expenseId);
     navigation.goBack();
   };
 
@@ -28,14 +37,21 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const handleConfirm = (expenseData) => {
-    isEditing
-      ? expensesCtx.updateExpense(expenseId, expenseData)
-      : expensesCtx.addExpense(expenseData);
+  const handleConfirm = async (expenseData) => {
+    setIsLoading(true);
+    if (isEditing) {
+      expensesCtx.updateExpense(expenseId, expenseData);
+      await updateExpense(expenseId, expenseData);
+    } else {
+      const id = await addExpense(expenseData);
+      expensesCtx.addExpense({ ...expenseData, id: id });
+    }
     handleCancel();
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <View style={styles.expenseContainer}>
       <ExpenseForm
         isEditing={isEditing}

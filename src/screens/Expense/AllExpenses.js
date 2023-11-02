@@ -1,15 +1,18 @@
 import { StyleSheet, View } from "react-native";
-import ExpensesOutput from "../components/Expense/ExpensesOutput";
-import { useContext } from "react";
-import { ExpensesContext } from "../store/expenses-context";
-import { GlobalStyles } from "../constants/styles";
+import ExpensesOutput from "../../components/Expense/ExpensesOutput";
+import { GlobalStyles } from "../../constants/styles";
+import useFetchExpense from "../../hooks/useFetchExpense";
+import Loader from "../../components/UI/Loader";
 
 const AllExpenses = () => {
-  const expensesCtx = useContext(ExpensesContext);
-  return (
+  const [expenses, isLoading] = useFetchExpense();
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <View style={styles.expenseConatiner}>
       <ExpensesOutput
-        expenses={expensesCtx.expenses}
+        expenses={expenses}
         expensesPeriod="Total"
         fallbackText="No expenses found!"
       />

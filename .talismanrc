@@ -3,6 +3,14 @@ fileignoreconfig:
   checksum: ac3671e0d5722bcb71eeba96e3fd64836517f9d12400992489dba197ffb613d4
 - filename: components/ManageExpense/ExpenseForm.js
   checksum: f086f107e96bc698ab181fec610eb45a91b6bfd58a4947930c38d30bf9b91b57
+- filename: src/components/Auth/AuthContent.js
+  checksum: b83b1621e362ee539866b5c883214fb51aaff4286bbd043e7266cca2d6fb2dc4
+- filename: src/components/Auth/AuthForm.js
+  checksum: 1e2bd624251d3bcf26d6dd017fc2826efe0ada7d49914253938159ccf30dd16c
+- filename: src/components/Auth/AuthInput.js
+  checksum: cf75e13342b937d43de5a3e9f3cca6831e548485ffa91a2b08e7d1e4e1bfdd5c
+- filename: src/services/auth.js
+  checksum: bc13311a55c4b4fcc48677d2f06427c0efde7162e2c5fb54835b6a56ac7415e3
 - filename: yarn.lock
-  checksum: 6936b88702f597d49b974763cc41b2f94f6778042c53e2c1629a637f97350e85
+  checksum: f2aeff60dcb71e492d9d0e868c6d4459642c5c3d070e485f3c750094aaac5339
 version: "1.0"
